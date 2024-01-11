@@ -18,7 +18,7 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="w-full bg-blue-600 px-4 py-2 flex justify-start items-center  ">
+    <nav className="w-full bg-indigo-400 px-4 py-2 flex justify-start items-center  ">
       <Link href="/">
         <Image
           src="/logo.svg"
@@ -49,13 +49,12 @@ const Navbar = () => {
             
               onClick={(isLogIn) => {
                 const filteredNotes = notes.filter(note => note.text.trim() !== "");
-                debugger
                 setNotes(filteredNotes);
                 localStorage.setItem(`note-app-${user_id}`, JSON.stringify(filteredNotes));
                 setIsLogIn(false);
                 window.localStorage.setItem("isLogIn", false);
                 window.localStorage.removeItem("active_user")
-               
+              //  redirect("/")
 
                 navigate("/")
               }}

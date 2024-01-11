@@ -7,15 +7,18 @@ import { v4 as uuid } from "uuid";
 import { useNotesContext } from "@/contexts/NoteContextProvider";
 
 const Home = () => {
-  const {addNote} = useNotesContext()
+  const { addNote, notes, setNotes, user_id } = useNotesContext();
 
+  useEffect(() => {
+    const filteredNotes = notes?.filter((note) => note.text?.trim() !== "");
+    setNotes(filteredNotes);
+    localStorage.setItem(`note-app-${user_id}`, JSON.stringify(filteredNotes));
+  }, []);
 
   return (
-    <div className={`${styles.container} flex`}>
+    <div className={`${styles.container} flex  mx-auto px-4`}>
       <Sidebar />
-      <NoteContainer
-       
-      />
+      <NoteContainer />
     </div>
   );
 };

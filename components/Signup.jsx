@@ -6,7 +6,8 @@ import * as Yup from "yup";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
+import Grid from "@mui/material/Grid"; // Grid version 1
 
 const Signup = () => {
   const [visible, setVisible] = useState(false);
@@ -31,7 +32,12 @@ const Signup = () => {
       )
       .required("Phone number is required"),
 
-    email: Yup.string().matches(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$/,"invalid email").required("Email is required"),
+    email: Yup.string()
+      .matches(
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$/,
+        "invalid email"
+      )
+      .required("Email is required"),
     password: Yup.string()
       .min(6, "password must be at least 6 characters ")
       .required("Password is required"),
@@ -59,9 +65,9 @@ const Signup = () => {
           let data = [];
           try {
             data = JSON.parse(localStorage.getItem("user"));
-            data = [...data, {id:userId,...values}];
+            data = [...data, { id: userId, ...values }];
           } catch (err) {
-            data = [{id:userId,...values}];
+            data = [{ id: userId, ...values }];
           }
           localStorage.setItem("user", JSON.stringify(data));
           resetForm();
@@ -70,51 +76,73 @@ const Signup = () => {
       >
         {({ isSubmitting }) => (
           <Form>
-            <div className="flex flex-col  ">
-              <div className="flex gap-4 ">
-                <TextField label="First Name" name="firstName" type="text" />
+            <Grid container  columnSpacing={{}}>
+              <Grid className="mr-4 lg:mr-10" xs={5}>
+                <TextField  label="First Name" name="firstName" type="text" />
+              </Grid>
+              <Grid xs={5}>
                 <TextField label="Last Name" name="lastName" type="text" />
-              </div>
+              </Grid>
+           
+            <Grid xs={12}>
+            <TextField label="Address" name="address" type="text" />
+            </Grid>
+            <Grid xs={12}>
+            <TextField label="Contact" name="contact" type="number" />
+            </Grid>
+            <Grid xs={12}>
+            <TextField label="Email" name="email" type="email" />
+            </Grid>
+            <Grid xs={12}>
+            <TextField
+              label="Password"
+              name="password"
+              type={visible ? "text" : "password"}
+            >
+              <button type="button" onClick={() => setVisible((prev) => !prev)}>
+                {visible ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </TextField>
+            </Grid>
 
-              <TextField label="Address" name="address" type="text" />
-              <TextField label="Contact" name="contact" type="number" />
-              <TextField label="Email" name="email" type="email" />
-              <TextField
-                label="Password"
-                name="password"
-                type={visible ? "text" : "password"}
+            <Grid xs={12}>
+            <TextField
+              label="Confirm Password"
+              name="confirmPassword"
+              type={visible1 ? "text" : "password"}
+            >
+              <button
+                type="button"
+                onClick={() => setVisible1((prev) => !prev)}
               >
-                <button
-                  type="button"
-                  onClick={() => setVisible((prev) => !prev)}
-                >
-                  {visible ? <FaEyeSlash /> : <FaEye />}
-                </button>
-              </TextField>
+                {visible1 ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </TextField>
+              </Grid>
 
-              <TextField
-                label="Confirm Password"
-                name="confirmPassword"
-                type={visible1 ? "text" : "password"}
+            
+
+         
+            
+            
+            
+ <Grid xs={12}>
+ <div className="pt-4 ">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="btn-primary "
               >
-                <button
-                  type="button"
-                  onClick={() => setVisible1((prev) => !prev)}
-                >
-                  {visible1 ? <FaEyeSlash /> : <FaEye />}
-                </button>
-              </TextField>
-
-              <div className="pt-4 ">
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="btn-primary "
-                >
-                  Register
-                </button>
-              </div>
+                Register
+              </button>
             </div>
+
+
+ </Grid>
+            
+
+           
+            </Grid>
           </Form>
         )}
       </Formik>
