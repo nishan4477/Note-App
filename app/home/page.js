@@ -16,9 +16,13 @@ const Home = () => {
   }, []);
 
   return (
-    <div className={`${styles.container} flex  mx-auto px-4`}>
+    <div className={`${styles.container} `}>
+      <div className="flex containers ">
       <Sidebar />
       <NoteContainer />
+
+      </div>
+    
     </div>
   );
 };

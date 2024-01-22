@@ -13,7 +13,9 @@
     "@emotion/styled": "^11.11.0",
     "@material-tailwind/react": "^2.1.8",
     "@mui/material": "^5.15.3",
+    "axios": "^1.6.5",
     "formik": "^2.4.5",
+    "is-ns": "^1.0.0",
     "lodash": "^4.17.21",
     "next": "14.0.4",
     "react": "^18",
@@ -21,8 +23,10 @@
     "react-icons": "^4.12.0",
     "react-modal": "^3.16.1",
     "react-select": "^5.8.0",
+    "react-tabs": "^6.0.2",
     "react-toastify": "^9.1.3",
     "sass": "^1.69.7",
+    "simple-nis-form": "^1.0.0",
     "uuid": "^9.0.1",
     "yup": "^1.3.3"
   },
@@ -31,6 +35,7 @@
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
     "postcss": "^8",
+    "prettier-plugin-tailwindcss": "^0.5.11",
     "tailwindcss": "^3.3.0"
   }
 }

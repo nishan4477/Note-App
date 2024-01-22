@@ -1,5 +1,26 @@
 .container{
+  position: relative;
   width: 100%;
-  height: calc(100vh - 5rem);
-  background:radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+  height: calc(100vh - 6.05rem);
+  background: url("/home.jpg") no-repeat center center fixed ;
+  background-size: cover;
+
+  
+ 
+  
+  &::before{
+    content:"";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.479);
+    z-index: 0;
+   
+
+  }
+
+  
+  // 
+  
 }
+

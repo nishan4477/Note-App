@@ -3,13 +3,14 @@
 import React, { useState } from "react";
 
 import { Formik, Form } from "formik";
-import TextField from "./TextField";
+
 import * as Yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { useLogContext } from "@/contexts/LogContextProvider";
+import TextField from "./TextField";
 
 const Login = () => {
   const [visible, setVisible] = useState(false);
@@ -45,23 +46,16 @@ const Login = () => {
             const foundUser = storedUserData[userIndex];
             // let active = JSON.parse(localStorage.getItem("active_user")) ||[]
 
-
-           
-
-            
-
             if (foundUser.password === values.password) {
               toast.success("login successfully!");
               setIsLogIn(true);
               window.localStorage.setItem("isLogIn", true);
-             window.localStorage.setItem("active_user", foundUser.id);
+              window.localStorage.setItem("active_user", foundUser.id);
               console.log(isLogIn);
-              setTimeout(() =>{
-                console.log("loged in")
+              setTimeout(() => {
+                console.log("loged in");
                 router.push("/home");
-
-              },1000)
-             
+              }, 1000);
             } else {
               toast.error("Wrong Password");
             }

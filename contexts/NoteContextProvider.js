@@ -1,22 +1,39 @@
 "use client";
 import React, { createContext, useState, useEffect, useContext } from "react";
 import { v4 as uuid } from "uuid";
-
+import { useLogContext } from "./LogContextProvider";
 
 const NotesContext = createContext(null);
 
 export const NotesProvider = ({ children }) => {
-  const user_id = localStorage.getItem("active_user");
+  const [user_id, setUser_id] = useState(null);
+  const [notes, setNotes] = useState([]);
+  const [catUpdate, setCatUpdate] = useState(false);
+  const{isLogIn}= useLogContext()
 
-  const [notes, setNotes] = useState(
-    JSON.parse(localStorage.getItem(`note-app-${user_id}`)) || []
-  );
-
-  const [catUpdate,setCatUpdate] = useState(false)
+  useEffect(() => {
+    let userID = localStorage.getItem("active_user") || " ";
+    setUser_id(userID);
+    const storedData =
+      JSON.parse(localStorage.getItem(`note-app-${userID}`)) || [];
+    setNotes(storedData);
+  }, [user_id,isLogIn]);
 
   useEffect(() => {
     localStorage.setItem(`note-app-${user_id}`, JSON.stringify(notes));
-  }, [notes, setNotes]);
+  }, [notes,user_id]);
+
+  useEffect(()=>{
+    const filteredNotes = notes.filter(
+      (note) => note.text.trim() !== ""
+    );
+    setNotes(filteredNotes);
+    localStorage.setItem(
+      `note-app-${user_id}`,
+      JSON.stringify(filteredNotes)
+    );
+  },[])
+
   // const debounced = (func, timer) => {
   //   let timeoutId;
   //   return (...args) => {
@@ -27,7 +44,6 @@ export const NotesProvider = ({ children }) => {
   // };
 
   const updateText = (text, id) => {
-    debugger
     const tempNotes = [...notes];
     const index = tempNotes.findIndex((item) => item.id === id);
     if (index !== -1) {
@@ -36,8 +52,40 @@ export const NotesProvider = ({ children }) => {
       console.log("debounced handled");
     }
   };
-  // const updateText = debounced((text,id) => updatesText(text, id), 2000);
+  const handleComplete = (id) => {
+   debugger
+    const updatedNotes = [...notes];
+    const index = updatedNotes.findIndex((item) => (item.id === id));
+    if(index != -1){
+      updatedNotes[index].completed = true;
+      setNotes(updatedNotes);
+      console.log(updatedNotes)
 
+    }
+    else{
+      console.log("cannot find the index of that note to completed")
+    }
+   
+  };
+
+  const handleUncomplete = (id)=>{
+    const updatedNotes = [...notes];
+    const index = updatedNotes.findIndex((item) => (item.id === id));
+    if(index != -1){
+      updatedNotes[index].completed = false;
+      setNotes(updatedNotes);
+      console.log(updatedNotes)
+
+    }
+    else{
+      console.log("cannot find the index of that note to completed")
+    }
+
+  }
+    
+
+
+  // const updateText = debounced((text,id) => updatesText(text, id), 2000);
 
   const addNote = (values) => {
     const tempNote = [...notes];
@@ -51,6 +99,7 @@ export const NotesProvider = ({ children }) => {
       text: " ",
       colors: randomColor,
       category: values,
+      completed: false,
     });
 
     setNotes(tempNote);
@@ -69,7 +118,18 @@ export const NotesProvider = ({ children }) => {
 
   return (
     <NotesContext.Provider
-      value={{ notes, updateText, addNote, deleteNote, setNotes, user_id,catUpdate,setCatUpdate }}
+      value={{
+        notes,
+        updateText,
+        addNote,
+        deleteNote,
+        setNotes,
+        user_id,
+        catUpdate,
+        setCatUpdate,
+        handleComplete,
+        handleUncomplete,
+      }}
     >
       {children}
     </NotesContext.Provider>

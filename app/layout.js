@@ -19,12 +19,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body  className={inter.className}>
-<NotesProvider>
       <LogContextProvider>
+<NotesProvider>
       <Navbar/>
         {children}
-      </LogContextProvider>
       </NotesProvider>
+      </LogContextProvider>
 
         </body>
     </html>

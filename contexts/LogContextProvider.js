@@ -6,7 +6,7 @@ export const logContext = createContext(null);
 
 export default function LogContextProvider({ children }) {
   const [isLogIn, setIsLogIn] = useState(false);
-  const[isPop,setIsPop] = useState(false)
+  
   useEffect(() => {
     console.log("called");
     const data = window.localStorage.getItem("isLogIn");

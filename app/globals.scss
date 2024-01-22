@@ -31,7 +31,8 @@ li{
 }
 
 .btn-secondary{
-    @apply bg-blue-gray-300 py-2 px-4 rounded-sm;
+    @apply  py-2 px-4 rounded-sm;
+    background-color:#fd5732 ;
 }
 
 
@@ -47,3 +48,18 @@ li{
     
 }
 
+.containers{
+    @apply mx-auto px-4;
+
+
+}
+
+
+.dropdown{
+    cursor: pointer;
+}
+
+
+.react-tabs__tab--selected{
+    border-radius: 0px!important;
+}
